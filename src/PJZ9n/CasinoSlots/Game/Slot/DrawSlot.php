@@ -107,10 +107,10 @@ abstract class DrawSlot extends Slot
     protected function drawEnd(): void
     {
         if (!$this->drawing) {
-            throw new LogicException("描画中ではない状態で関数が呼ばれました。");
+            throw new LogicException("The function was called without drawing.");
         }
         if (!$this->taskHandler instanceof TaskHandler) {
-            throw new LogicException("TaskHandlerがセットされていない状態で関数が呼ばれました。");
+            throw new LogicException("TaskHandler The function was called when was not set.");
         }
         $this->taskHandler->cancel();
         $this->drawing = false;
@@ -124,7 +124,7 @@ abstract class DrawSlot extends Slot
     public function addLoop(): void
     {
         if (!$this->drawing) {
-            throw new LogicException("描画中ではない状態で関数が呼ばれました。");
+            throw new LogicException("The function was called without drawing.");
         }
         $this->loop++;
     }
@@ -138,7 +138,7 @@ abstract class DrawSlot extends Slot
     public function getLoop(): int
     {
         if (!$this->drawing) {
-            throw new LogicException("描画中ではない状態で関数が呼ばれました。");
+            throw new LogicException("The function was called without drawing.");
         }
         return $this->loop;
     }
@@ -149,7 +149,7 @@ abstract class DrawSlot extends Slot
     private function resetLoop(): void
     {
         if ($this->drawing) {
-            throw new LogicException("描画中の状態で関数が呼ばれました。");
+            throw new LogicException("The function was called while drawing.");
         }
         $this->loop = 0;
     }

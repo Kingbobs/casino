@@ -1,26 +1,28 @@
 ---
-#編集しないでください
+
+# Do not edit
 config-version: 1
-
-#経済APIの設定
+# Economic API settings
 moneyapi:
-  #EconomyAPI, MoneySytem, MixCoinSystemが使用できます。
-  use: null
+#EconomyAPI, MoneySytem, MixCoinSystem can be used.
+  use: EconomyAPI
 
-# ゲームの設定
+
+# Game settings
 games:
-  # ゲーム名
+  # Game name
   starslot:
-    # 作成する数
+    # Number to create
     make-number: 5
-    # 必要な金額
+    # Required amount
     cost: 100
 
-# データベースの設定
+# Database settings
 database:
-  # 現在sqliteのみ使用できます
+  # 
+Currently only sqlite can be used
   type: sqlite
   sqlite:
-    # sqliteのファイル名
+    # sqlite file name
     file: data.db
 ...

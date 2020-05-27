@@ -27,7 +27,7 @@ class NotSeatedException extends GameException
     
     public function __construct(Game $game)
     {
-        parent::__construct($game, "着席していません。");
+        parent::__construct($game, "I'm not sitting.");
     }
     
 }

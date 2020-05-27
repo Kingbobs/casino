@@ -17,8 +17,9 @@
 
 declare(strict_types=1);
 
-//警告: この名前空間以下のコードすべては気分を害する恐れがあります。
-//閲覧する場合には十分気を付けてください。完全に自己責任でお願いします。
+
+// WARNING: All code under this namespace can be offensive.
+// Please be careful when browsing. Please take full responsibility at your own risk.
 namespace PJZ9n\CasinoSlots;
 
 use PJZ9n\CasinoSlots\API\CasinoSlotsAPI;
@@ -49,7 +50,7 @@ class CasinoSlots extends PluginBase implements Listener
     
     /**
      * @var Game[]
-     * [string "ゲーム名" => Game[]]
+     * [string "Game name" => Game[]]
      */
     private $games;
     
@@ -67,10 +68,10 @@ class CasinoSlots extends PluginBase implements Listener
         $resourceConfigVersion = $resourceConfig["config-version"];
         $configVersion = $this->getConfig()->get("config-version");
         if ($resourceConfigVersion > $configVersion) {
-            $this->getLogger()->notice("新しいconfig.yml(バージョン: {$resourceConfigVersion})があります。");
-            $this->getLogger()->notice("更新するには、config.ymlのコピーを取ってから削除して再起動してください。");
+            $this->getLogger()->notice("There is a new config.yml (version: {$ resourceConfigVersion}).");
+            $this->getLogger()->notice("To update, make a copy of config.yml, delete it and restart.");
         } else {
-            $this->getLogger()->info("config.ymlは最新(バージョン: {$configVersion})です。");
+            $this->getLogger()->info("config.yml is up to date (version: {$ configVersion}).");
         }
         //Init moneyAPIConnector
         $useApi = $this->getConfig()->getNested("moneyapi.use", null);
@@ -85,9 +86,9 @@ class CasinoSlots extends PluginBase implements Listener
                 $this->moneyAPIConnector = new MixCoinSystemConnector();
                 break;
             default:
-                throw new RuntimeException("対応していない経済APIが指定されています。");
+                throw new RuntimeException("An unsupported economic API has been specified.");
         }
-        $this->getLogger()->info("現在 {$useApi} の経済APIが指定されています。");
+        $this->getLogger()->info("Currently the {$ useApi} economic API is specified.");
         //Init DB
         $dbSetting = [];
         $dbSetting["type"] = $this->getConfig()->getNested("database.type", null);
@@ -97,9 +98,9 @@ class CasinoSlots extends PluginBase implements Listener
             "sqlite" => "sqls/sqlite.sql",
         ]);
         $this->db->executeGeneric("CasinoSlots.savedata.init", [], function () {
-            $this->getLogger()->debug("データベースの初期化処理が完了しました。");
+            $this->getLogger()->debug("Database initialization processing is complete.");
         });
-        $this->db->waitAll();//初期化待ち
+        $this->db->waitAll(); // Wait for initialization
         //Init Permission
         PermissionManager::getInstance()->addPermission(new Permission(
             "casinoslots.command.cgame",
@@ -113,7 +114,7 @@ class CasinoSlots extends PluginBase implements Listener
         $games = $this->getConfig()->get("games");
         foreach ($games as $gameName => $gameOption) {
             for ($makeNumber = 1; $makeNumber <= $gameOption["make-number"]; $makeNumber++) {
-                //あまり良くない実装
+                //Poor implementation
                 /** @var Game $makeGame */
                 $makeGame = null;
                 switch ($gameName) {
@@ -121,11 +122,11 @@ class CasinoSlots extends PluginBase implements Listener
                         $makeGame = new StarSlot($makeNumber, $gameOption["cost"], $this->getScheduler());
                         break;
                     default:
-                        $this->getLogger()->warning($gameName . " は存在しません。");
+                        $this->getLogger()->warning($gameName . " Does not exist");
                         continue 2;
                 }
                 $this->games[$gameName][$makeNumber] = $makeGame;
-                $this->getLogger()->debug("{$gameName} のID {$makeNumber} を作成しました。");
+                $this->getLogger()->debug("{$gameName} のID {$makeNumber} is created.");
                 if ($makeGame instanceof SaveData) {
                     $this->db->executeSelect("CasinoSlots.savedata.get", [
                         "name" => $makeGame->getName(),
@@ -134,14 +135,14 @@ class CasinoSlots extends PluginBase implements Listener
                         if (isset($rows[0]["data"])) {
                             $data = json_decode($rows[0]["data"], true);
                             $makeGame->inputSaveData($data);
-                            $this->getLogger()->debug("レコードからデータを取得しました。");
+                            $this->getLogger()->debug("Got the data from the record.");
                         } else {
                             $this->db->executeInsert("CasinoSlots.savedata.add", [
                                 "name" => $makeGame->getName(),
                                 "id" => $makeGame->getId(),
                                 "data" => json_encode($makeGame->outputSaveData()),
                             ], function (int $insertId, int $affectedRows) {
-                                $this->getLogger()->debug("ID: {$insertId}, {$affectedRows} 個のレコードを作成しました。");
+                                $this->getLogger()->debug("ID: {$insertId}, {$affectedRows} I have created records.");
                             });
                         }
                     });
@@ -149,7 +150,7 @@ class CasinoSlots extends PluginBase implements Listener
                 }
             }
         }
-        $this->getLogger()->info(count($this->games) . " 種類のゲームが利用可能です。");
+        $this->getLogger()->info(count($this->games) . "Kinds of games are available.");
         //Init API
         new CasinoSlotsAPI($this->games, $this->moneyAPIConnector);
         $this->processFinished = true;
@@ -157,7 +158,7 @@ class CasinoSlots extends PluginBase implements Listener
     
     public function onDisable(): void
     {
-        //onEnableの処理途中でプラグインが無効化された場合
+        //onEnableIf the plugin is disabled during the processing of
         if (!$this->processFinished) {
             return;
         }
@@ -165,14 +166,14 @@ class CasinoSlots extends PluginBase implements Listener
         foreach ($this->games as $gameArray) {
             foreach ($gameArray as $game) {
                 /** @var Game $game */
-                $this->getLogger()->debug("{$game->getName()} のID {$game->getId()} の修了処理をします。");
+                $this->getLogger()->debug("{$game->getName()} of ID {$game->getId()} Will be completed.");
                 if ($game instanceof SaveData) {
                     $this->db->executeChange("CasinoSlots.savedata.update", [
                         "data" => json_encode($game->outputSaveData()),
                         "name" => $game->getName(),
                         "id" => $game->getId(),
                     ], function (int $affectedRows) {
-                        $this->getLogger()->debug("{$affectedRows} 個のアップデートが完了しました。");
+                        $this->getLogger()->debug("{$affectedRows} Updates have been completed.");
                     });
                 }
             }

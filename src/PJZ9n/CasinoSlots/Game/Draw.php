@@ -21,7 +21,7 @@ namespace PJZ9n\CasinoSlots\Game;
 
 /**
  * Trait Draw
- * 本来使用するはずでしたが、PhpStormの問題で現時点でこのトレイトは使用できません。
+ * I should have used it, but due to a problem with PhpStorm, this trait is not available at this time.
  *
  * @package PJZ9n\CasinoSlots\Game
  */

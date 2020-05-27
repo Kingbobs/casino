@@ -146,7 +146,7 @@ class CasinoSlots extends PluginBase implements Listener
                             });
                         }
                     });
-                    $this->db->waitAll();//最終待機
+                    $this->db->waitAll();//Final standby
                 }
             }
         }
@@ -162,7 +162,7 @@ class CasinoSlots extends PluginBase implements Listener
         if (!$this->processFinished) {
             return;
         }
-        //Gameの終了処理
+        //Game End processing
         foreach ($this->games as $gameArray) {
             foreach ($gameArray as $game) {
                 /** @var Game $game */
@@ -178,7 +178,7 @@ class CasinoSlots extends PluginBase implements Listener
                 }
             }
         }
-        //データベースの修了処理
+        //Database completion processing
         $this->db->waitAll();
         if ($this->db instanceof DataConnector) {
             $this->db->close();

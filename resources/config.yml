@@ -4,7 +4,7 @@
 config-version: 1
 # Economic API settings
 moneyapi:
-#EconomyAPI, MoneySytem, MixCoinSystem can be used.
+# EconomyAPI, MoneySytem, MixCoinSystem can be used.
   use: EconomyAPI
 
 
@@ -19,8 +19,7 @@ games:
 
 # Database settings
 database:
-  # 
-Currently only sqlite can be used
+  # Currently only sqlite can be used
   type: sqlite
   sqlite:
     # sqlite file name

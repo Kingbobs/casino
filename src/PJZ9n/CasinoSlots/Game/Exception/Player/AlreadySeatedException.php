@@ -27,7 +27,7 @@ class AlreadySeatedException extends GameException
     
     public function __construct(Game $game)
     {
-        parent::__construct($game, "すでに着席しています。");
+        parent::__construct($game, "I'm already seated.");
     }
     
 }

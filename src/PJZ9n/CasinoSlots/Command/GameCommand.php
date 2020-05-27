@@ -42,7 +42,7 @@ class GameCommand extends PluginCommand implements CommandExecutor
         $this->setAliases([
             "game",
         ]);
-        $this->setDescription("ゲームを操作する");
+        $this->setDescription("Operate the game");
         $this->setUsage(/** @lang TEXT */
             "/cgame start <name> <id>\n" .
             "/cgame data <name> <id>\n" .

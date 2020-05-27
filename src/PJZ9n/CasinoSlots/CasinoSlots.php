@@ -88,7 +88,7 @@ class CasinoSlots extends PluginBase implements Listener
             default:
                 throw new RuntimeException("An unsupported economic API has been specified.");
         }
-        $this->getLogger()->info("Currently the {$ useApi} economic API is specified.");
+        $this->getLogger()->info("Currently the {$useApi} economic API is specified.");
         //Init DB
         $dbSetting = [];
         $dbSetting["type"] = $this->getConfig()->getNested("database.type", null);

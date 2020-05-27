@@ -23,7 +23,7 @@ use Exception;
 
 /**
  * Class MoneyAPIConnnectorException
- * MoneyAPIConnectorで発生した例外。
+ * MoneyAPIConnector Exception raised in.
  *
  * @link MoneyAPIConnector
  * @package PJZ9n\CasinoSlots\MoneyAPIConnector

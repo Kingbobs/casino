@@ -72,7 +72,7 @@ class GameCommand extends PluginCommand implements CommandExecutor
         switch ($args[0]) {
             case "start":
                 if (!$sender instanceof Player) {
-                    $sender->sendMessage("プレイヤーから実行してください。");
+                    $sender->sendMessage("Please execute from the player.");
                     return true;
                 }
                 if (!isset($args[1], $args[2])) {
@@ -89,7 +89,7 @@ class GameCommand extends PluginCommand implements CommandExecutor
                 }
                 if ($game instanceof DrawSlot) {
                     if ($game->getDrawing()) {
-                        $sender->sendMessage("すでに実行中です。");
+                        $sender->sendMessage("It is already running.");
                         return true;
                     }
                 }
@@ -97,15 +97,15 @@ class GameCommand extends PluginCommand implements CommandExecutor
                 if (!$seatedPlayer instanceof Player) {
                     //空席の場合
                     $game->seatPlayer($sender);
-                    $sender->sendMessage("着席しました！");
+                    $sender->sendMessage("I took a seat!");
                     $seatedPlayer = $game->getSeatedPlayer();
                 } else if ($seatedPlayer !== $sender) {
-                    $sender->sendMessage("すでに {$seatedPlayer->getName()} さんが着席しています。");
+                    $sender->sendMessage("Already {$seatedPlayer->getName()} Is seated.");
                     return true;
                 }
                 $moneyAPIConnector = CasinoSlotsAPI::getInstance()->getMoneyAPIConnector();
                 if ($moneyAPIConnector->getMoney($seatedPlayer) < $game->getNeedMoney()) {
-                    $sender->sendMessage("所持金が足りません。");
+                    $sender->sendMessage("I don't have enough money.");
                     return true;
                 }
                 $moneyAPIConnector->takeMoney($seatedPlayer, $game->getNeedMoney());

@@ -23,7 +23,7 @@ interface DataCounter
 {
     
     /**
-     * データカウンターを文字列で取得する
+     * Get the data counter as a string
      *
      * @return string
      */

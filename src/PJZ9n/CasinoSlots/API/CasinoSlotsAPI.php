@@ -59,7 +59,7 @@ class CasinoSlotsAPI
     public function __construct(array $games, MoneyAPIConnector $moneyAPIConnector)
     {
         if (self::$instance instanceof self) {
-            throw new RuntimeException("このクラスのインスタンスを複数生成することはできません。");
+            throw new RuntimeException("You cannot create multiple instances of this class.");
         }
         self::$instance = $this;
         $this->games = $games;

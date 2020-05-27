@@ -54,7 +54,7 @@ class CasinoSlotsAPI
      *
      * @param Game[] $games [string "ゲーム名" => Game[]]
      *
-     * @internal APIのインスタンスはプラグインが生成します。
+     * @internal API An instance of is created by the plugin
      */
     public function __construct(array $games, MoneyAPIConnector $moneyAPIConnector)
     {
@@ -111,7 +111,7 @@ class CasinoSlotsAPI
     {
         $gameIds = [];
         foreach ($this->games as $gameName => $gameArray) {
-            if ($gameName = $name) {
+            if ($gameName === $name) {
                 foreach ($gameArray as $game) {
                     /** @var Game $game */
                     $gameIds[] = $game->getId();

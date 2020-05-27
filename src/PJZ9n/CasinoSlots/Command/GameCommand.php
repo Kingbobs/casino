@@ -84,7 +84,7 @@ class GameCommand extends PluginCommand implements CommandExecutor
                 if ($gameId === false) return false;
                 $game = CasinoSlotsAPI::getInstance()->getGame($gameName, $gameId);
                 if (!$game instanceof Game) {
-                    $sender->sendMessage("そのゲームは存在しません。");
+                    $sender->sendMessage("The game doesn't exist.");
                     return true;
                 }
                 if ($game instanceof DrawSlot) {

@@ -68,10 +68,10 @@ class CasinoSlots extends PluginBase implements Listener
         $resourceConfigVersion = $resourceConfig["config-version"];
         $configVersion = $this->getConfig()->get("config-version");
         if ($resourceConfigVersion > $configVersion) {
-            $this->getLogger()->notice("There is a new config.yml (version: {$ resourceConfigVersion}).");
+            $this->getLogger()->notice("There is a new config.yml (version: {$resourceConfigVersion}).");
             $this->getLogger()->notice("To update, make a copy of config.yml, delete it and restart.");
         } else {
-            $this->getLogger()->info("config.yml is up to date (version: {$ configVersion}).");
+            $this->getLogger()->info("config.yml is up to date (version: {$configVersion}).");
         }
         //Init moneyAPIConnector
         $useApi = $this->getConfig()->getNested("moneyapi.use", null);

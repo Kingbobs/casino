@@ -95,7 +95,7 @@ class GameCommand extends PluginCommand implements CommandExecutor
                 }
                 $seatedPlayer = $game->getSeatedPlayer();
                 if (!$seatedPlayer instanceof Player) {
-                    //空席の場合
+                    //In case of empty seat
                     $game->seatPlayer($sender);
                     $sender->sendMessage("I took a seat!");
                     $seatedPlayer = $game->getSeatedPlayer();
@@ -132,5 +132,4 @@ class GameCommand extends PluginCommand implements CommandExecutor
         }
         return false;
     }
-    
 }

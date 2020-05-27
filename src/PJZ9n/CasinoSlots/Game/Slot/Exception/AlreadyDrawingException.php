@@ -27,7 +27,7 @@ class AlreadyDrawingException extends GameException
     
     public function __construct(Game $game)
     {
-        parent::__construct($game, "すでに描画中です。");
+        parent::__construct($game, "It is already being drawn.");
     }
     
 }
